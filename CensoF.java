@@ -1,4 +1,5 @@
 
+
 package censof;
 
 import java.util.Scanner;
@@ -10,12 +11,13 @@ public class CensoF {
     
     
        public static void main(String[] args) {
-        
-        JOptionPane.showMessageDialog(null, "CONSULTA DE SERVICIOS SEGUN SU ESTRATO");
+        Scanner Teclado = new Scanner(System.in);
+                
 
-       //Solicito la cantidad de Familias
-        int CantFamilias = Integer.parseInt(JOptionPane.showInputDialog("Ingrese La cantidad de familias a registrar: "));
-       
+        // Solicitar la cantidad de familias
+        System.out.print("Ingrese la cantidad de familias: ");
+        int CantFamilias = Teclado.nextInt();
+        Teclado.nextLine(); // Consumir el salto de línea pendiente
 
         // Arreglos para almacenar los valores
         double[] Agua = new double[CantFamilias];
@@ -25,29 +27,36 @@ public class CensoF {
 
         // Ingresar los datos de cada familia
         for (int i = 0; i < CantFamilias; i++) {
-            JOptionPane.showMessageDialog(null,"\nDatos de la familia N. " + (i + 1) + ":");
+            System.out.println("\nDatos de la familia N. " + (i + 1) + ":");
 
-            Agua[i] = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor del servicio de agua: "));
-            Luz[i] = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor del servicio de la luz: "));
-            Gas[i] = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor del servicio del gas: "));
-            Estrato[i] = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el estrato de la familia (1, 2, 3 o más): "));
+            System.out.print("Ingrese el valor del servicio de agua: ");
+            Agua[i] = Teclado.nextDouble();
+
+            System.out.print("Ingrese el valor del servicio de luz: ");
+            Luz[i] = Teclado.nextDouble();
+
+            System.out.print("Ingrese el valor del servicio de gas: ");
+            Gas[i] = Teclado.nextDouble();
+
+            System.out.print("Ingrese el estrato de la familia (1, 2, 3 o más): ");
+            Estrato[i] = Teclado.nextInt();
         }
 
         
-        JOptionPane.showMessageDialog(null,"\n--- Totales a Pagar por Familia ---");
+        System.out.println("\n--- Totales a Pagar por Familia ---");
         for (int i = 0; i < CantFamilias; i++) {
             double descuentoAgua = aplicarDescuento(Agua[i], Estrato[i]);
             double descuentoLuz = aplicarDescuento(Luz[i], Estrato[i]);
             double descuentoGas = aplicarDescuento(Gas[i], Estrato[i]);
 
-            
-            JOptionPane.showMessageDialog(null,"\nFamilia N. " + (i + 1) + ":"+"\n"+
-            "Total Agua: " + Agua[i] + "Total con descuento: " + descuentoAgua + "\n" +
-            "Total Luz: " + Luz[i] + "Total con descuento: " + descuentoLuz + "\n" +
-            "Total Gas: " + Gas[i] + "Total con descuento: " + descuentoGas);
+            System.out.println("\nFamilia N. " + (i + 1) + ":");
+            System.out.printf("Total Agua: %.2f\n", descuentoAgua);
+            System.out.printf("Total Luz: %.2f\n", descuentoLuz);
+            System.out.printf("Total Gas: %.2f\n", descuentoGas);
         }
 
-       }
+        Teclado.close(); 
+    }
 
     
     public static double aplicarDescuento(double valor, int estrato) {
@@ -64,6 +73,5 @@ public class CensoF {
         return valor - descuento;
     }
 }
-    
     
 
